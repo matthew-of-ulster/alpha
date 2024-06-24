@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uno/database.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,6 +37,20 @@ class MyApp extends StatelessWidget {
   }
 }
 
+void runDB() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final database = AppDatabase();
+
+  await database.into(database.todoItems).insert(TodoItemsCompanion.insert(
+        title: 'todo: another task',
+        content: 'We can now write queries and define our own tables.',
+      ));
+  List<TodoItem> allItems = await database.select(database.todoItems).get();
+
+  print('items in database: $allItems');
+}
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -59,6 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 /*
   void _incrementCounter() {
+    runDB();
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
