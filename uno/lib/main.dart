@@ -142,6 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _createDialog() {
+    runDB();
     showDialog(
       context: context,
       builder: (context) {
