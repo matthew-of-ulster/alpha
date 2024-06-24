@@ -49,6 +49,7 @@ void runDB() async {
   List<TodoItem> allItems = await database.select(database.todoItems).get();
 
   print('items in database: $allItems');
+
 }
 
 class MyHomePage extends StatefulWidget {
@@ -74,7 +75,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 /*
   void _incrementCounter() {
-    runDB();
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
