@@ -41,19 +41,21 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void runDB() async {
+Future getDBResults() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final database = AppDatabase();
 
+/*
   await database.into(database.todoItems).insert(TodoItemsCompanion.insert(
         title: 'todo: another task',
         content: 'We can now write queries and define our own tables.',
       ));
+      */
   List<TodoItem> allItems = await database.select(database.todoItems).get();
 
-  print('items in database: $allItems');
-
+  return allItems;
+  //print('items in database: $allItems');
 }
 
 class MyHomePage extends StatefulWidget {
@@ -93,61 +95,48 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times!!!:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _createDialog,
-        tooltip: 'Open Dialog',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    return FutureBuilder(
+        future: getDBResults(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                title: Text(widget.title),
+              ),
+              body: Center(
+                child: ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: ((context, index) {
+                      final entry = snapshot.data[index];
+
+                      return Text((index + 1).toString() + "---" + entry.title);
+                    })),
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: _createDialog,
+                tooltip: 'Open Dialog',
+                child: const Icon(Icons.add),
+              ), // This trailing comma makes auto-formatting nicer for build methods.
+            );
+          } else {
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                title: Text(widget.title),
+              ),
+              body: Center(child: Text("No Entries!!!")),
+              floatingActionButton: FloatingActionButton(
+                onPressed: _createDialog,
+                tooltip: 'Open Dialog',
+                child: const Icon(Icons.add),
+              ), // This trailing comma makes auto-formatting nicer for build methods.
+            );
+          }
+        });
   }
 
   _createDialog() {
-    runDB();
     return showDialog(
       context: context,
       builder: (context) {
@@ -171,5 +160,4 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
-
 }
