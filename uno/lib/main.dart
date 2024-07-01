@@ -147,6 +147,8 @@ class _MyHomePageState extends State<MyHomePage> {
             TextButton(
               onPressed: () {
                 addDBResult(tagController.text);
+                tagController.clear();
+                descriptionController.clear();
                 setState(() {});
                 Navigator.of(context).pop();
               },
