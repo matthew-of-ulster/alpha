@@ -18,21 +18,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo 2',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
@@ -41,19 +26,35 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void runDB() async {
+Future getDBResults() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final database = AppDatabase();
 
+/*
   await database.into(database.todoItems).insert(TodoItemsCompanion.insert(
         title: 'todo: another task',
         content: 'We can now write queries and define our own tables.',
       ));
+      */
   List<TodoItem> allItems = await database.select(database.todoItems).get();
 
-  print('items in database: $allItems');
+  return allItems;
+}
 
+void addDBResult(String title) async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final database = AppDatabase();
+
+  if (title.length < 6) {
+    title = title + "aaaaaa";
+  }
+
+  await database.into(database.todoItems).insert(TodoItemsCompanion.insert(
+        title: title,
+        content: 'null content',
+      ));
 }
 
 class MyHomePage extends StatefulWidget {
@@ -94,6 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     // This method is rerun every time setState is called, for instance as done
@@ -147,16 +149,57 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+=======
+    return FutureBuilder(
+        future: getDBResults(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                title: Text(widget.title),
+              ),
+              body: Center(
+                child: ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: ((context, index) {
+                      final entry = snapshot.data[index];
+
+                      return Text((index + 1).toString() + "---" + entry.title);
+                    })),
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: _createDialog,
+                tooltip: 'Open Dialog',
+                child: const Icon(Icons.add),
+              ), // This trailing comma makes auto-formatting nicer for build methods.
+            );
+          } else {
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                title: Text(widget.title),
+              ),
+              body: Center(child: Text("No Entries!!!")),
+              floatingActionButton: FloatingActionButton(
+                onPressed: _createDialog,
+                tooltip: 'Open Dialog',
+                child: const Icon(Icons.add),
+              ), // This trailing comma makes auto-formatting nicer for build methods.
+            );
+          }
+        });
+>>>>>>> 11ea30bc4e78d2eb37404ed66eba814fc044eca9
   }
 
   _createDialog() {
-    runDB();
     return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           insetPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 100),
           title: const Text('Dialog Title'),
+<<<<<<< HEAD
           content: SizedBox(
             height: MediaQuery.of(context).size.height * 0.8,
             width: MediaQuery.of(context).size.width * 0.8,
@@ -178,11 +221,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ],
+=======
+          content: TextField(
+            controller: taskController,
+            decoration: const InputDecoration(
+              hintText: 'Enter text to add',
+>>>>>>> 11ea30bc4e78d2eb37404ed66eba814fc044eca9
             ),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
+                addDBResult(taskController.text);
+                setState(() {});
                 Navigator.of(context).pop();
               },
               child: const Text('Add'),
@@ -198,5 +249,4 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
-
 }
