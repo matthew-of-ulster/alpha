@@ -75,7 +75,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController taskController = TextEditingController();
+  TextEditingController tagController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   int _counter = 0;
 
 /*
@@ -93,6 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -152,14 +155,38 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          insetPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 100),
           title: const Text('Dialog Title'),
-          content: TextField(
-            controller: taskController,
-            decoration: const InputDecoration(
-              hintText: 'Enter some text',
+          content: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.8,
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: Column(
+              children: <Widget>[
+                TextField(
+                  controller: tagController,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Title',
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: descriptionController,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Notes',
+                  ),
+                ),
+              ],
             ),
           ),
           actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Add'),
+            ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
