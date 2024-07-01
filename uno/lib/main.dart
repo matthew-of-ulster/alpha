@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_print
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:uno/database.dart';
 
 void main() {
@@ -73,6 +75,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  TextEditingController taskController = TextEditingController();
   int _counter = 0;
 
 /*
@@ -143,14 +146,19 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _createDialog() {
+  _createDialog() {
     runDB();
-    showDialog(
+    return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: const Text('Dialog Title'),
-          content: const Text('This is the content of the dialog'),
+          content: TextField(
+            controller: taskController,
+            decoration: const InputDecoration(
+              hintText: 'Enter some text',
+            ),
+          ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
