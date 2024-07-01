@@ -48,7 +48,7 @@ void addDBResult(String title) async {
   final database = AppDatabase();
 
   if (title.length < 6) {
-    title = title + "aaaaaa";
+    title = "${title}aaaaaa";
   }
 
   await database.into(database.todoItems).insert(TodoItemsCompanion.insert(
@@ -78,7 +78,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController tagController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  int _counter = 0;
 
 /*
   void _incrementCounter() {
@@ -95,61 +94,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times!!!:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _createDialog,
-        tooltip: 'Open Dialog',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-=======
     return FutureBuilder(
         future: getDBResults(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -189,7 +133,6 @@ class _MyHomePageState extends State<MyHomePage> {
             );
           }
         });
->>>>>>> 11ea30bc4e78d2eb37404ed66eba814fc044eca9
   }
 
   _createDialog() {
@@ -199,7 +142,6 @@ class _MyHomePageState extends State<MyHomePage> {
         return AlertDialog(
           insetPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 100),
           title: const Text('Dialog Title'),
-<<<<<<< HEAD
           content: SizedBox(
             height: MediaQuery.of(context).size.height * 0.8,
             width: MediaQuery.of(context).size.width * 0.8,
@@ -221,18 +163,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ],
-=======
-          content: TextField(
-            controller: taskController,
-            decoration: const InputDecoration(
-              hintText: 'Enter text to add',
->>>>>>> 11ea30bc4e78d2eb37404ed66eba814fc044eca9
             ),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                addDBResult(taskController.text);
+                addDBResult(tagController.text);
                 setState(() {});
                 Navigator.of(context).pop();
               },
