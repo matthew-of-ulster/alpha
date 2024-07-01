@@ -11,8 +11,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,13 +28,6 @@ Future getDBResults() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final database = AppDatabase();
-
-/*
-  await database.into(database.todoItems).insert(TodoItemsCompanion.insert(
-        title: 'todo: another task',
-        content: 'We can now write queries and define our own tables.',
-      ));
-      */
   List<TodoItem> allItems = await database.select(database.todoItems).get();
 
   return allItems;
@@ -48,7 +39,7 @@ void addDBResult(String title) async {
   final database = AppDatabase();
 
   if (title.length < 6) {
-    title = "${title}aaaaaa";
+    title = "${title}:(was too short)";
   }
 
   await database.into(database.todoItems).insert(TodoItemsCompanion.insert(
@@ -59,16 +50,6 @@ void addDBResult(String title) async {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -78,19 +59,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController tagController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-
-/*
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter = _counter + 2;
-    });
-  }
-*/
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +108,8 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 100),
+          insetPadding:
+              const EdgeInsets.symmetric(horizontal: 5, vertical: 100),
           title: const Text('Dialog Title'),
           content: SizedBox(
             height: MediaQuery.of(context).size.height * 0.8,
