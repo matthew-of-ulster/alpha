@@ -147,16 +147,24 @@ class _MyHomePageState extends State<MyHomePage> {
             width: MediaQuery.of(context).size.width * 0.8,
             child: Column(
               children: <Widget>[
-                TextField(
+                TextFormField(
                   controller: tagController,
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Title',
                   ),
                 ),
                 const SizedBox(height: 10),
-                TextField(
+                TextFormField(
                   controller: descriptionController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 5,
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Notes',
