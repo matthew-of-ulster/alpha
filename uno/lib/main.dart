@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     itemBuilder: ((context, index) {
                       final entry = snapshot.data[index];
 
-                      return Text((index + 1).toString() + "---" + entry.title);
+                      return Text("${index + 1}---${entry.title}");
                     })),
               ),
               floatingActionButton: FloatingActionButton(
@@ -124,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 backgroundColor: Theme.of(context).colorScheme.inversePrimary,
                 title: Text(widget.title),
               ),
-              body: Center(child: Text("No Entries!!!")),
+              body: const Center(child: Text("No Entries!!!")),
               floatingActionButton: FloatingActionButton(
                 onPressed: _createDialog,
                 tooltip: 'Open Dialog',
@@ -161,6 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 TextFormField(
                   controller: descriptionController,
                   keyboardType: TextInputType.multiline,
+                  minLines: 1,
                   maxLines: 5,
                   style: const TextStyle(
                     fontSize: 20,
@@ -184,6 +185,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TextButton(
               onPressed: () {
+                tagController.clear();
+                descriptionController.clear();
                 Navigator.of(context).pop();
               },
               child: const Text('Close'),
