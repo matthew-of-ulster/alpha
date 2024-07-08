@@ -48,6 +48,10 @@ void addDBResult(String title) async {
       ));
 }
 
+void clearDB() async {
+  AppDatabase().delete(AppDatabase().todoItems);
+}
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
@@ -80,11 +84,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       return Text("${index + 1}---${entry.title}");
                     })),
               ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: _createDialog,
-                tooltip: 'Open Dialog',
-                child: const Icon(Icons.add),
-              ), // This trailing comma makes auto-formatting nicer for build methods.
+              persistentFooterButtons: <Widget>[
+                IconButton(icon: Icon(Icons.add), onPressed: _createDialog),
+                IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      clearDB();
+                      setState(() {});
+                    }),
+              ], // This trailing comma makes auto-formatting nicer for build methods.
             );
           } else {
             return Scaffold(
@@ -93,11 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text(widget.title),
               ),
               body: const Center(child: Text("No Entries!!!")),
-              floatingActionButton: FloatingActionButton(
-                onPressed: _createDialog,
-                tooltip: 'Open Dialog',
-                child: const Icon(Icons.add),
-              ), // This trailing comma makes auto-formatting nicer for build methods.
+              // This trailing comma makes auto-formatting nicer for build methods.
             );
           }
         });
