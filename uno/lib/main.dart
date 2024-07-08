@@ -114,21 +114,43 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (context) {
         return AlertDialog(
           insetPadding:
-              const EdgeInsets.symmetric(horizontal: 5, vertical: 100),
-          title: const Text('Dialog Title'),
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          title: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+            child: Text('Add a task',),
+          ),
           content: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.8,
+            height: MediaQuery.of(context).size.height * 0.65,
             width: MediaQuery.of(context).size.width * 0.8,
             child: Column(
               children: <Widget>[
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Enter a title',
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
                 TextFormField(
                   controller: tagController,
                   style: const TextStyle(
                     fontSize: 20,
                   ),
                   decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Title',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Add some notes',
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -136,36 +158,54 @@ class _MyHomePageState extends State<MyHomePage> {
                   controller: descriptionController,
                   keyboardType: TextInputType.multiline,
                   minLines: 1,
-                  maxLines: 5,
+                  maxLines: 3,
                   style: const TextStyle(
                     fontSize: 20,
                   ),
                   decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Notes',
+                    border: OutlineInputBorder(),
                   ),
                 ),
               ],
             ),
           ),
           actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                addDBResult(tagController.text);
-                tagController.clear();
-                descriptionController.clear();
-                setState(() {});
-                Navigator.of(context).pop();
-              },
-              child: const Text('Add'),
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.blueGrey,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  minimumSize: const Size(350, 60),
+                ),
+                onPressed: () {
+                  addDBResult(tagController.text);
+                  tagController.clear();
+                  descriptionController.clear();
+                  setState(() {});
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Add'),
+              ),
             ),
-            TextButton(
-              onPressed: () {
-                tagController.clear();
-                descriptionController.clear();
-                Navigator.of(context).pop();
-              },
-              child: const Text('Close'),
+            const SizedBox(height: 15),
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.blueGrey,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  minimumSize: const Size(350, 60),
+                ),
+                onPressed: () {
+                  tagController.clear();
+                  descriptionController.clear();
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Close'),
+              ),
             ),
           ],
         );
