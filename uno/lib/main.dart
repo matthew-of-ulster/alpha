@@ -49,6 +49,7 @@ void addDBResult(String title) async {
 }
 
 void clearDB() async {
+  WidgetsFlutterBinding.ensureInitialized();
   AppDatabase().delete(AppDatabase().todoItems);
 }
 
