@@ -120,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           content: SizedBox(
             height: MediaQuery.of(context).size.height * 0.65,
-            width: MediaQuery.of(context).size.width * 0.8,
+            width: MediaQuery.of(context).size.width * 1.0,
             child: Column(
               children: <Widget>[
                 const Align(
