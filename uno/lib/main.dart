@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:uno/database.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,35 +21,6 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
-}
-
-Future getDBResults() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  final database = AppDatabase();
-  List<TodoItem> allItems = await database.select(database.todoItems).get();
-
-  return allItems;
-}
-
-void addDBResult(String title) async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  final database = AppDatabase();
-
-  if (title.length < 6) {
-    title = "${title}:(was too short)";
-  }
-
-  await database.into(database.todoItems).insert(TodoItemsCompanion.insert(
-        title: title,
-        content: 'null content',
-      ));
-}
-
-void clearDB() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  AppDatabase().delete(AppDatabase().todoItems);
 }
 
 class MyHomePage extends StatefulWidget {
@@ -90,7 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {
-                      clearDB();
                       setState(() {});
                     }),
               ], // This trailing comma makes auto-formatting nicer for build methods.
@@ -102,6 +71,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text(widget.title),
               ),
               body: const Center(child: Text("No Entries!!!")),
+              persistentFooterButtons: <Widget>[
+                IconButton(icon: Icon(Icons.add), onPressed: _createDialog),
+                IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      setState(() {});
+                    }),
+              ],
               // This trailing comma makes auto-formatting nicer for build methods.
             );
           }
@@ -117,7 +94,9 @@ class _MyHomePageState extends State<MyHomePage> {
               const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           title: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-            child: Text('Add a task',),
+            child: Text(
+              'Add a task',
+            ),
           ),
           content: SizedBox(
             height: MediaQuery.of(context).size.height * 0.65,
@@ -179,13 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   minimumSize: const Size(350, 60),
                 ),
-                onPressed: () {
-                  addDBResult(tagController.text);
-                  tagController.clear();
-                  descriptionController.clear();
-                  setState(() {});
-                  Navigator.of(context).pop();
-                },
+                onPressed: () {},
                 child: const Text('Add'),
               ),
             ),
@@ -212,4 +185,6 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
+
+  getDBResults() {}
 }
