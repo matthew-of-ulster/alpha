@@ -3,6 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:uno/dog.dart';
+import 'dbHelper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,13 +34,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final Dbhelper _databaseService = Dbhelper();
+
+  Future<List<Dog>> _getDogs() async {
+    return await _databaseService.dogs();
+  }
+
   TextEditingController tagController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getDBResults(),
+        future: _getDogs(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
@@ -51,15 +59,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     itemCount: snapshot.data.length,
                     itemBuilder: ((context, index) {
                       final entry = snapshot.data[index];
+                      print("log---" + entry.name);
 
-                      return Text("${index + 1}---${entry.title}");
+                      return Text("${entry.id}---${entry.name}");
                     })),
               ),
               persistentFooterButtons: <Widget>[
                 IconButton(icon: Icon(Icons.add), onPressed: _createDialog),
                 IconButton(
+                    icon: Icon(Icons.refresh),
+                    onPressed: () {
+                      setState(() {});
+                    }),
+                IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {
+                      _databaseService.deleteAllDog();
                       setState(() {});
                     }),
               ], // This trailing comma makes auto-formatting nicer for build methods.
@@ -70,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 backgroundColor: Theme.of(context).colorScheme.inversePrimary,
                 title: Text(widget.title),
               ),
-              body: const Center(child: Text("No Entries!!!")),
+              body: const Center(child: Text("Bo Wow!!!")),
               persistentFooterButtons: <Widget>[
                 IconButton(icon: Icon(Icons.add), onPressed: _createDialog),
                 IconButton(
@@ -95,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
           title: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
             child: Text(
-              'Add a task',
+              'Add a dog',
             ),
           ),
           content: SizedBox(
@@ -106,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Enter a title',
+                    'Name',
                     style: TextStyle(
                       fontSize: 15,
                     ),
@@ -126,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Add some notes',
+                    'Position',
                     style: TextStyle(
                       fontSize: 15,
                     ),
@@ -158,7 +173,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   minimumSize: const Size(350, 60),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Dog tempDog = new Dog(
+                      id: int.parse(descriptionController.text),
+                      name: tagController.text ?? '',
+                      age: 5);
+                  _databaseService.insertDog(tempDog);
+
+                  Navigator.of(context).pop();
+                  setState(() {});
+                },
                 child: const Text('Add'),
               ),
             ),
