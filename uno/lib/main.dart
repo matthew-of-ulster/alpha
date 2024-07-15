@@ -56,9 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     })),
               ),
               persistentFooterButtons: <Widget>[
-                IconButton(icon: Icon(Icons.add), onPressed: _createDialog),
+                IconButton(icon: const Icon(Icons.add), onPressed: _createDialog),
                 IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () {
                       setState(() {});
                     }),
@@ -72,9 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               body: const Center(child: Text("No Entries!!!")),
               persistentFooterButtons: <Widget>[
-                IconButton(icon: Icon(Icons.add), onPressed: _createDialog),
+                IconButton(icon: const Icon(Icons.add), onPressed: _createDialog),
                 IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () {
                       setState(() {});
                     }),
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (context) {
         return AlertDialog(
 
-          //padding
+          // padding
           insetPadding:
               const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
 
@@ -127,11 +127,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 // task tag text field
                 TextFormField(
                   controller: tagController,
+                  cursorColor: Colors.grey,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 15,
                   ),
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -151,14 +153,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 // task notes text field
                 TextFormField(
                   controller: notesController,
+                  cursorColor: Colors.grey,
                   keyboardType: TextInputType.multiline,
                   minLines: 1,
-                  maxLines: 3,
+                  maxLines: 5,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 15,
                   ),
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(),
                   ),
                 ),
               ],
