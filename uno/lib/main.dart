@@ -63,7 +63,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController tagController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  TextEditingController notesController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -113,13 +113,21 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
+
+          //padding
           insetPadding:
               const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+
+          // dialog title parameter    
           title: const Padding(
+
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
             child: Text('Add a task',),
           ),
+
+          // dialog content parameter
           content: SizedBox(
+
             height: MediaQuery.of(context).size.height * 0.65,
             width: MediaQuery.of(context).size.width * 1.0,
             child: Column(
@@ -133,7 +141,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
+
+                // spacing
                 const SizedBox(height: 10),
+
+                // task tag text field
                 TextFormField(
                   controller: tagController,
                   style: const TextStyle(
@@ -153,9 +165,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
+
+                // spacing
                 const SizedBox(height: 10),
+
+                // task notes text field
                 TextFormField(
-                  controller: descriptionController,
+                  controller: notesController,
                   keyboardType: TextInputType.multiline,
                   minLines: 1,
                   maxLines: 3,
@@ -169,7 +185,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
+
+          // dialog actions parameter
           actions: <Widget>[
+
+            // add task entry button
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -182,14 +202,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   addDBResult(tagController.text);
                   tagController.clear();
-                  descriptionController.clear();
+                  notesController.clear();
                   setState(() {});
                   Navigator.of(context).pop();
                 },
                 child: const Text('Add'),
               ),
             ),
+            
+            // spacing
             const SizedBox(height: 15),
+
+            // close dialog button
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -201,7 +225,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 onPressed: () {
                   tagController.clear();
-                  descriptionController.clear();
+                  notesController.clear();
                   Navigator.of(context).pop();
                 },
                 child: const Text('Close'),
