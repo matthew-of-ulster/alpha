@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   TextEditingController tagController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  TextEditingController notesController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     })),
               ),
               persistentFooterButtons: <Widget>[
-                IconButton(icon: Icon(Icons.add), onPressed: _createDialog),
+                IconButton(
+                    icon: const Icon(Icons.add), onPressed: _createDialog),
                 IconButton(
                     icon: Icon(Icons.refresh),
                     onPressed: () {
@@ -87,9 +88,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               body: const Center(child: Text("Bo Wow!!!")),
               persistentFooterButtons: <Widget>[
-                IconButton(icon: Icon(Icons.add), onPressed: _createDialog),
                 IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.add), onPressed: _createDialog),
+                IconButton(
+                    icon: const Icon(Icons.delete),
                     onPressed: () {
                       setState(() {});
                     }),
@@ -105,14 +107,19 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          // padding
           insetPadding:
               const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+
+          // dialog title parameter
           title: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
             child: Text(
               'Add a dog',
             ),
           ),
+
+          // dialog content parameter
           content: SizedBox(
             height: MediaQuery.of(context).size.height * 0.65,
             width: MediaQuery.of(context).size.width * 1.0,
@@ -127,14 +134,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
+
+                // spacing
                 const SizedBox(height: 10),
+
+                // task tag text field
                 TextFormField(
                   controller: tagController,
+                  cursorColor: Colors.grey,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 15,
                   ),
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -147,23 +160,32 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
+
+                // spacing
                 const SizedBox(height: 10),
+
+                // task notes text field
                 TextFormField(
-                  controller: descriptionController,
+                  controller: notesController,
+                  cursorColor: Colors.grey,
                   keyboardType: TextInputType.multiline,
                   minLines: 1,
-                  maxLines: 3,
+                  maxLines: 5,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 15,
                   ),
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(),
                   ),
                 ),
               ],
             ),
           ),
+
+          // dialog actions parameter
           actions: <Widget>[
+            // add task entry button
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -175,18 +197,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 onPressed: () {
                   Dog tempDog = new Dog(
-                      id: int.parse(descriptionController.text),
+                      id: int.parse(notesController.text),
                       name: tagController.text ?? '',
                       age: 5);
                   _databaseService.insertDog(tempDog);
-
-                  Navigator.of(context).pop();
                   setState(() {});
+                  tagController.clear();
+                  notesController.clear();
+                  Navigator.of(context).pop();
                 },
                 child: const Text('Add'),
               ),
             ),
+
+            // spacing
             const SizedBox(height: 15),
+
+            // close dialog button
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -198,7 +225,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 onPressed: () {
                   tagController.clear();
-                  descriptionController.clear();
+                  notesController.clear();
                   Navigator.of(context).pop();
                 },
                 child: const Text('Close'),
