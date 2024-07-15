@@ -125,6 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
             width: MediaQuery.of(context).size.width * 1.0,
             child: Column(
               children: <Widget>[
+
+                // tag title
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -146,11 +148,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontSize: 15,
                   ),
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black26),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black26),
+                    ),
                   ),
                 ),
+
+                //spacing
                 const SizedBox(height: 10),
+
+                // notes title
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -175,8 +185,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontSize: 15,
                   ),
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black26),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black26),
+                    ),
                   ),
                 ),
               ],
