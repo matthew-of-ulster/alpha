@@ -17,7 +17,6 @@ class Memo {
   });
 
   Map<String, dynamic> toMap() {
-    int setId = id ?? 0;
     String setDate = '';
 
     if (createdDate == null) {
@@ -36,7 +35,6 @@ class Memo {
     }
 
     return {
-      'id': setId,
       'title': title,
       'description': description,
       'createdDate': setDate,
