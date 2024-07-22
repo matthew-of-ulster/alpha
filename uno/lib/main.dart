@@ -57,7 +57,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       final entry = snapshot.data[index];
                       print("log---$entry.name");
 
-                      return Text("${entry.title}---${entry.description}");
+                      return Card(
+                          child: ListTile(
+                        title: Text("${entry.id}"),
+                        subtitle: Text("${entry.name}"),
+                      ));
                     })),
               ),
               persistentFooterButtons: <Widget>[
@@ -113,10 +117,56 @@ class _MyHomePageState extends State<MyHomePage> {
               const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
 
           // dialog title parameter
-          title: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-            child: Text(
-              'Add a Memo',
+          title: Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: Row(
+              children: [
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Create Task',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF15161E),
+                          )),
+                      Text(
+                        'Please fill out the form below to continue.',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF606A85),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: const Color(0xFFE5E5E5),
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.close,
+                        color: Color(0xFF15161E),
+                        size: 24,
+                      ),
+                      onPressed: () {
+                        titleController.clear();
+                        descriptionController.clear();
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
 
@@ -227,25 +277,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
             // spacing
             const SizedBox(height: 15),
-
-            // close dialog button
-            Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.blueGrey,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  minimumSize: const Size(350, 60),
-                ),
-                onPressed: () {
-                  descriptionController.clear();
-                  titleController.clear();
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Close'),
-              ),
-            ),
           ],
         );
       },
