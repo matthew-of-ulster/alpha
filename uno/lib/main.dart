@@ -180,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Descritption',
+                      'Title',
                       style: TextStyle(
                         fontSize: 15,
                       ),
@@ -192,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   // task tag text field
                   TextFormField(
-                    controller: descriptionController,
+                    controller: titleController,
                     cursorColor: Colors.grey,
                     style: const TextStyle(
                       fontSize: 15,
@@ -214,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Title',
+                      'Description',
                       style: TextStyle(
                         fontSize: 15,
                       ),
@@ -226,7 +226,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   // task notes text field
                   TextFormField(
-                    controller: titleController,
+                    controller: descriptionController,
                     cursorColor: Colors.grey,
                     keyboardType: TextInputType.multiline,
                     minLines: 1,
