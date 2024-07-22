@@ -121,77 +121,79 @@ class _MyHomePageState extends State<MyHomePage> {
           content: SizedBox(
             height: MediaQuery.of(context).size.height * 0.65,
             width: MediaQuery.of(context).size.width * 1.0,
-            child: Column(
-              children: <Widget>[
-
-                // tag title
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Name',
-                    style: TextStyle(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+              
+                  // tag title
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Name',
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+              
+                  // spacing
+                  const SizedBox(height: 10),
+              
+                  // task tag text field
+                  TextFormField(
+                    controller: tagController,
+                    cursorColor: Colors.grey,
+                    style: const TextStyle(
                       fontSize: 15,
                     ),
-                  ),
-                ),
-
-                // spacing
-                const SizedBox(height: 10),
-
-                // task tag text field
-                TextFormField(
-                  controller: tagController,
-                  cursorColor: Colors.grey,
-                  style: const TextStyle(
-                    fontSize: 15,
-                  ),
-                  decoration: const InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black26),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black26),
+                    decoration: const InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black26),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black26),
+                      ),
                     ),
                   ),
-                ),
-
-                //spacing
-                const SizedBox(height: 10),
-
-                // notes title
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Position',
-                    style: TextStyle(
+              
+                  //spacing
+                  const SizedBox(height: 10),
+              
+                  // notes title
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Position',
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+              
+                  // spacing
+                  const SizedBox(height: 10),
+              
+                  // task notes text field
+                  TextFormField(
+                    controller: notesController,
+                    cursorColor: Colors.grey,
+                    keyboardType: TextInputType.multiline,
+                    minLines: 1,
+                    maxLines: 5,
+                    style: const TextStyle(
                       fontSize: 15,
                     ),
-                  ),
-                ),
-
-                // spacing
-                const SizedBox(height: 10),
-
-                // task notes text field
-                TextFormField(
-                  controller: notesController,
-                  cursorColor: Colors.grey,
-                  keyboardType: TextInputType.multiline,
-                  minLines: 1,
-                  maxLines: 5,
-                  style: const TextStyle(
-                    fontSize: 15,
-                  ),
-                  decoration: const InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black26),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black26),
+                    decoration: const InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black26),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black26),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
 
