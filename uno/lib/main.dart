@@ -1,8 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:uno/dog.dart';
 import 'dbHelper.dart';
 
@@ -59,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     itemCount: snapshot.data.length,
                     itemBuilder: ((context, index) {
                       final entry = snapshot.data[index];
-                      print("log---" + entry.name);
+                      print("log---$entry.name");
 
                       return Text("${entry.id}---${entry.name}");
                     })),
@@ -68,12 +66,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 IconButton(
                     icon: const Icon(Icons.add), onPressed: _createDialog),
                 IconButton(
-                    icon: Icon(Icons.refresh),
+                    icon: const Icon(Icons.refresh),
                     onPressed: () {
                       setState(() {});
                     }),
                 IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () {
                       _databaseService.deleteAllDog();
                       setState(() {});
