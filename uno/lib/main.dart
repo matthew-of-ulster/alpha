@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:uno/dog.dart';
+import 'package:uno/memo.dart';
 import 'dbHelper.dart';
 
 void main() {
@@ -36,17 +36,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final Dbhelper _databaseService = Dbhelper();
 
-  Future<List<Dog>> _getDogs() async {
-    return await _databaseService.dogs();
-  }
-
-  TextEditingController tagController = TextEditingController();
-  TextEditingController notesController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _getDogs(),
+        future: _databaseService.memos(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
@@ -61,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       final entry = snapshot.data[index];
                       print("log---$entry.name");
 
-                      return Text("${entry.id}---${entry.name}");
+                      return Text("${entry.title}---${entry.description}");
                     })),
               ),
               persistentFooterButtons: <Widget>[
@@ -75,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 IconButton(
                     icon: const Icon(Icons.delete),
                     onPressed: () {
-                      _databaseService.deleteAllDog();
+                      _databaseService.deleteAllMemo();
                       setState(() {});
                     }),
               ], // This trailing comma makes auto-formatting nicer for build methods.
@@ -90,6 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
               persistentFooterButtons: <Widget>[
                 IconButton(
                     icon: const Icon(Icons.add), onPressed: _createDialog),
+                IconButton(
+                    icon: const Icon(Icons.refresh),
+                    onPressed: () {
+                      setState(() {});
+                    }),
                 IconButton(
                     icon: const Icon(Icons.delete),
                     onPressed: () {
@@ -115,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
           title: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
             child: Text(
-              'Add a dog',
+              'Add a Memo',
             ),
           ),
 
@@ -126,24 +127,22 @@ class _MyHomePageState extends State<MyHomePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-              
-                  // tag title
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Name',
+                      'Descritption',
                       style: TextStyle(
                         fontSize: 15,
                       ),
                     ),
                   ),
-              
+
                   // spacing
                   const SizedBox(height: 10),
-              
+
                   // task tag text field
                   TextFormField(
-                    controller: tagController,
+                    controller: descriptionController,
                     cursorColor: Colors.grey,
                     style: const TextStyle(
                       fontSize: 15,
@@ -157,27 +156,27 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-              
+
                   //spacing
                   const SizedBox(height: 10),
-              
+
                   // notes title
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Position',
+                      'Title',
                       style: TextStyle(
                         fontSize: 15,
                       ),
                     ),
                   ),
-              
+
                   // spacing
                   const SizedBox(height: 10),
-              
+
                   // task notes text field
                   TextFormField(
-                    controller: notesController,
+                    controller: titleController,
                     cursorColor: Colors.grey,
                     keyboardType: TextInputType.multiline,
                     minLines: 1,
@@ -212,14 +211,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   minimumSize: const Size(350, 60),
                 ),
                 onPressed: () {
-                  Dog tempDog = new Dog(
-                      id: int.parse(notesController.text),
-                      name: tagController.text ?? '',
-                      age: 5);
-                  _databaseService.insertDog(tempDog);
+                  Memo tempMemo = Memo(
+                    title: titleController.text ?? '',
+                    description: descriptionController.text ?? '',
+                  );
+                  _databaseService.insertMemo(tempMemo);
                   setState(() {});
-                  tagController.clear();
-                  notesController.clear();
+                  descriptionController.clear();
+                  titleController.clear();
                   Navigator.of(context).pop();
                 },
                 child: const Text('Add'),
@@ -240,8 +239,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   minimumSize: const Size(350, 60),
                 ),
                 onPressed: () {
-                  tagController.clear();
-                  notesController.clear();
+                  descriptionController.clear();
+                  titleController.clear();
                   Navigator.of(context).pop();
                 },
                 child: const Text('Close'),
