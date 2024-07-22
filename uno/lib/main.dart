@@ -55,12 +55,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     itemCount: snapshot.data.length,
                     itemBuilder: ((context, index) {
                       final entry = snapshot.data[index];
-                      print("log---$entry.name");
 
                       return Card(
                           child: ListTile(
-                        title: Text("${entry.title}"),
-                        subtitle: Text("${entry.description}"),
+                        title: Text(
+                            "${entry.title} --- ${entry.createdDate.toString()}"),
+                        subtitle: Text(
+                            "${entry.description} --- OffCount:${entry.putOffCount}"),
                       ));
                     })),
               ),
