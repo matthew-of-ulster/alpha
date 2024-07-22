@@ -59,8 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       return Card(
                           child: ListTile(
-                        title: Text("${entry.id}"),
-                        subtitle: Text("${entry.name}"),
+                        title: Text("${entry.title}"),
+                        subtitle: Text("${entry.description}"),
                       ));
                     })),
               ),
