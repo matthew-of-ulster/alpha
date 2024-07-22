@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_print
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:uno/dog.dart';
 import 'dbHelper.dart';
 
@@ -123,7 +125,6 @@ class _MyHomePageState extends State<MyHomePage> {
             width: MediaQuery.of(context).size.width * 1.0,
             child: Column(
               children: <Widget>[
-
                 // tag title
                 const Align(
                   alignment: Alignment.centerLeft,
