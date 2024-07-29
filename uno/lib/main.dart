@@ -60,12 +60,33 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       return Card(
                           child: ListTile(
-                        title: Text(
-                            "${entry.title} --- ${entry.createdDate.toString()} --> ${entry.targetDate.toString()}"),
+                        title: Column(
+                          children: [
+                            Text("Title:${entry.title}"),
+                            Text("Description:${entry.description}"),
+                            Row(children: [
+                              Container(
+                                margin: const EdgeInsets.all(15.0),
+                                padding: const EdgeInsets.all(3.0),
+                                decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: Colors.blueAccent)),
+                                child: Text(
+                                    "Created:@${entry.createdDate.day}@${entry.createdDate.hour}:${entry.createdDate.minute}\nTarget:@${entry.targetDate.day}@${entry.targetDate.hour}:${entry.targetDate.minute}"),
+                              ),
+                              Container(
+                                  margin: const EdgeInsets.all(15.0),
+                                  padding: const EdgeInsets.all(3.0),
+                                  decoration: BoxDecoration(
+                                      border:
+                                          Border.all(color: Colors.blueAccent)),
+                                  child: Text(
+                                      "Put It Off Total\n${entry.putOffCount}")),
+                            ]),
+                          ],
+                        ),
                         subtitle: Column(
                           children: <Widget>[
-                            Text(
-                                "${entry.description}[OffCount:${entry.putOffCount}]"),
                             Container(
                                 child: Row(
                               children: <Widget>[
