@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 
 class Memo {
-  final int? id;
-  final String title;
-  final String description;
-  final DateTime? createdDate;
-  final DateTime? targetDate;
-  final int? putOffCount;
+  int? id;
+  String title;
+  String description;
+  DateTime? createdDate;
+  DateTime? targetDate;
+  int? putOffCount;
 
   Memo({
     this.id,
@@ -39,12 +39,11 @@ class Memo {
     }
 
     int setCount;
-    if (putOffCount != null) {
-      setCount = putOffCount! + 1;
+    if (putOffCount == null) {
+      setCount = 40;
     } else {
-      setCount = 0;
+      setCount = putOffCount ?? 50;
     }
-
     return {
       'title': title,
       'description': description,
@@ -67,7 +66,7 @@ class Memo {
       description: map['description'] ?? '',
       createdDate: DateTime.parse(map['createdDate']),
       targetDate: tempTargetDate,
-      putOffCount: map['putOffCount'] ?? 0,
+      putOffCount: map['putOffCount'] ?? 30,
     );
   }
 

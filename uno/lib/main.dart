@@ -89,17 +89,22 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: <Widget>[
                             Container(
                                 child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
                                 TextButton(
-                                  child: Text("btn1"),
+                                  child: Text("10 min"),
+                                  onPressed: () async {
+                                    entry.putOffCount = 19;
+                                    await _databaseService.updateMemo(entry);
+                                    setState(() {});
+                                  },
+                                ),
+                                TextButton(
+                                  child: Text("10 hours"),
                                   onPressed: () {},
                                 ),
                                 TextButton(
-                                  child: Text("btn2"),
-                                  onPressed: () {},
-                                ),
-                                TextButton(
-                                  child: Text("btn3"),
+                                  child: Text("10 days"),
                                   onPressed: () {},
                                 ),
                               ],
