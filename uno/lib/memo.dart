@@ -47,7 +47,7 @@ class Memo {
       id: map['id']?.toInt() ?? 0,
       title: map['title'] ?? '',
       description: map['description'] ?? '',
-      createdDate: DateTime.now(),
+      createdDate: DateTime.parse(map['createdDate']),
       putOffCount: map['putOffCount'] ?? 0,
     );
   }
