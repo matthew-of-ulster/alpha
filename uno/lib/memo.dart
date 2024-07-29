@@ -6,6 +6,7 @@ class Memo {
   final String title;
   final String description;
   final DateTime? createdDate;
+  final DateTime? targetDate;
   final int? putOffCount;
 
   Memo({
@@ -13,18 +14,28 @@ class Memo {
     required this.title,
     required this.description,
     this.createdDate,
+    this.targetDate,
     this.putOffCount,
   });
 
   Map<String, dynamic> toMap() {
-    String setDate = '';
+    String setCreatedDate = '';
+    String setTargetDate = '';
 
     if (createdDate == null) {
       String formatted =
           DateFormat("yyyy-MM-dd hh:mm:ss").format(DateTime.now());
-      setDate = formatted;
+      setCreatedDate = formatted;
     } else {
-      setDate = DateFormat("yyyy-MM-dd hh:mm:ss").format(createdDate!);
+      setCreatedDate = DateFormat("yyyy-MM-dd hh:mm:ss").format(createdDate!);
+    }
+
+    if (targetDate == null) {
+      String formatted = DateFormat("yyyy-MM-dd hh:mm:ss")
+          .format(DateTime.now().add(const Duration(hours: 1)));
+      setTargetDate = formatted;
+    } else {
+      setTargetDate = DateFormat("yyyy-MM-dd hh:mm:ss").format(targetDate!);
     }
 
     int setCount;
@@ -37,17 +48,25 @@ class Memo {
     return {
       'title': title,
       'description': description,
-      'createdDate': setDate,
+      'createdDate': setCreatedDate,
+      'targetDate': setTargetDate,
       'putOffCount': setCount,
     };
   }
 
   factory Memo.fromMap(Map<String, dynamic> map) {
+    DateTime tempTargetDate;
+    if (map['targetDate'] != null) {
+      tempTargetDate = DateTime.parse(map['targetDate']);
+    } else {
+      tempTargetDate = DateTime.now().add(const Duration(hours: 1));
+    }
     return Memo(
       id: map['id']?.toInt() ?? 0,
       title: map['title'] ?? '',
       description: map['description'] ?? '',
-      createdDate: DateTime.now(),
+      createdDate: DateTime.parse(map['createdDate']),
+      targetDate: tempTargetDate,
       putOffCount: map['putOffCount'] ?? 0,
     );
   }
@@ -60,6 +79,6 @@ class Memo {
   // each dog when using the print statement.
   @override
   String toString() {
-    return 'Memo(id: $id, title: $title, description: $description, createdDate: $createdDate, putOffCount: $putOffCount)';
+    return 'Memo(id: $id, title: $title, description: $description, createdDate: $createdDate,targetDate: $targetDate, putOffCount: $putOffCount)';
   }
 }
