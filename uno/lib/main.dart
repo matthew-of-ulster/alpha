@@ -62,8 +62,29 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: ListTile(
                         title: Text(
                             "${entry.title} --- ${entry.createdDate.toString()} --> ${entry.targetDate.toString()}"),
-                        subtitle: Text(
-                            "${entry.description} --- OffCount:${entry.putOffCount}"),
+                        subtitle: Column(
+                          children: <Widget>[
+                            Text(
+                                "${entry.description}[OffCount:${entry.putOffCount}]"),
+                            Container(
+                                child: Row(
+                              children: <Widget>[
+                                TextButton(
+                                  child: Text("btn1"),
+                                  onPressed: () {},
+                                ),
+                                TextButton(
+                                  child: Text("btn2"),
+                                  onPressed: () {},
+                                ),
+                                TextButton(
+                                  child: Text("btn3"),
+                                  onPressed: () {},
+                                ),
+                              ],
+                            ))
+                          ],
+                        ),
                       ));
                     })),
               ),
@@ -180,7 +201,6 @@ class _MyHomePageState extends State<MyHomePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-
                   // spacing
                   const SizedBox(height: 10),
 
