@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       return Card(
                           child: ListTile(
                         title: Text(
-                            "${entry.title} --- ${entry.createdDate.toString()}"),
+                            "${entry.title} --- ${entry.createdDate.toString()} --> ${entry.targetDate.toString()}"),
                         subtitle: Text(
                             "${entry.description} --- OffCount:${entry.putOffCount}"),
                       ));
