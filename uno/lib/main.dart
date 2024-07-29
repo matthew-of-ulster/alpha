@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -178,15 +180,6 @@ class _MyHomePageState extends State<MyHomePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Title',
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
 
                   // spacing
                   const SizedBox(height: 10),
@@ -199,30 +192,35 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontSize: 15,
                     ),
                     decoration: const InputDecoration(
+                      labelText: 'Enter Title...',
+                      labelStyle: TextStyle(
+                        color: Colors.black45,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      hintStyle: TextStyle(
+                        color: Colors.black45,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black26),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderSide: BorderSide(
+                          color: Color(0xFFE5E5E5),
+                          width: 2,
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black26),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderSide: BorderSide(
+                          color: Color(0xFFE5E5E5),
+                          width: 2,
+                        ),
                       ),
                     ),
                   ),
 
                   //spacing
-                  const SizedBox(height: 10),
-
-                  // notes title
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Description',
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-
-                  // spacing
                   const SizedBox(height: 10),
 
                   // task notes text field
@@ -236,11 +234,30 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontSize: 15,
                     ),
                     decoration: const InputDecoration(
+                      labelText: 'Enter Description...',
+                      labelStyle: TextStyle(
+                        color: Colors.black45,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      hintStyle: TextStyle(
+                        color: Colors.black45,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black26),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderSide: BorderSide(
+                          color: Color(0xFFE5E5E5),
+                          width: 2,
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black26),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderSide: BorderSide(
+                          color: Color(0xFFE5E5E5),
+                          width: 2,
+                        ),
                       ),
                     ),
                   ),
