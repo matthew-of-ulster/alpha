@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
           // dialog title parameter
           title: Padding(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 25),
             child: Row(
               children: [
                 const Expanded(
@@ -132,14 +132,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w500,
-                            color: Color(0xFF15161E),
+                            color: Colors.black87,
                           )),
                       Text(
                         'Please fill out the form below to continue.',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xFF606A85),
+                          color: Colors.black54,
                         ),
                       ),
                     ],
@@ -185,64 +185,75 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(height: 10),
 
                   // task tag text field
-                  TextFormField(
-                    controller: titleController,
-                    cursorColor: Colors.grey,
-                    style: const TextStyle(
-                      fontSize: 15,
-                    ),
-                    decoration: const InputDecoration(
-                      labelText: 'Enter Title...',
-                      labelStyle: TextStyle(
-                        color: Colors.black45,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                  SizedBox(
+                    height: 80,
+                    child: TextFormField(
+                      controller: titleController,
+                      expands: true,
+                      maxLines: null,
+                      cursorColor: Colors.grey,
+                      style: const TextStyle(
+                        fontSize: 15,
                       ),
-                      hintStyle: TextStyle(
-                        color: Colors.black45,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        borderSide: BorderSide(
-                          color: Color(0xFFE5E5E5),
-                          width: 2,
+                      decoration: const InputDecoration(
+                        labelText: 'Enter Title...',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                          fontSize: 20,
+                          letterSpacing: 0,
+                          fontWeight: FontWeight.w500,
                         ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        borderSide: BorderSide(
-                          color: Color(0xFFE5E5E5),
-                          width: 2,
+                        hintStyle: TextStyle(
+                          color: Colors.black45,
+                          fontSize: 14,
+                          letterSpacing: 0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderSide: BorderSide(
+                            color: Color(0xFFE5E5E5),
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderSide: BorderSide(
+                            color: Color(0xFFE5E5E5),
+                            width: 2,
+                          ),
                         ),
                       ),
                     ),
                   ),
 
                   //spacing
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 15),
 
                   // task notes text field
                   TextFormField(
                     controller: descriptionController,
                     cursorColor: Colors.grey,
                     keyboardType: TextInputType.multiline,
-                    minLines: 1,
-                    maxLines: 5,
+                    minLines: 5,
+                    maxLines: 9,
+                    textAlignVertical: TextAlignVertical.top,
                     style: const TextStyle(
                       fontSize: 15,
                     ),
                     decoration: const InputDecoration(
+                      alignLabelWithHint: true,
                       labelText: 'Enter Description...',
                       labelStyle: TextStyle(
                         color: Colors.black45,
                         fontSize: 16,
+                        letterSpacing: 0,
                         fontWeight: FontWeight.w500,
                       ),
                       hintStyle: TextStyle(
                         color: Colors.black45,
                         fontSize: 10,
+                        letterSpacing: 0,
                         fontWeight: FontWeight.w500,
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -272,7 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.blueGrey,
+                  backgroundColor: Colors.black54,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -289,7 +300,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   titleController.clear();
                   Navigator.of(context).pop();
                 },
-                child: const Text('Add'),
+                child: const Text(
+                  'Add',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    letterSpacing: 0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
             ),
 
