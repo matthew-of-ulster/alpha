@@ -17,7 +17,7 @@ class Dbhelper {
   Future<Database> _initDatabase() async {
     final databasePath = await getDatabasesPath();
 
-    final path = join(databasePath, 'procrastinate_db4.db');
+    final path = join(databasePath, 'procrastinate_db5.db');
 
     return await openDatabase(
       path,
@@ -29,7 +29,7 @@ class Dbhelper {
 
   Future<void> _onCreate(Database db, int version) async {
     await db.execute(
-      'CREATE TABLE memos(id INTEGER AUTO_INCREMENT, title TEXT, description TEXT, createdDate DATETIME, putOffCount INTEGER, PRIMARY KEY(id))',
+      'CREATE TABLE memos(id INTEGER AUTO_INCREMENT, title TEXT, description TEXT, createdDate DATETIME, targetDate DATETIME, putOffCount INTEGER, PRIMARY KEY(id))',
     );
   }
 
