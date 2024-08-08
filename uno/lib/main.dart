@@ -37,6 +37,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final Dbhelper _databaseService = Dbhelper();
+  final formKey = GlobalKey<FormState>();
 
   TextEditingController descriptionController = TextEditingController();
   TextEditingController titleController = TextEditingController();
@@ -216,34 +217,90 @@ class _MyHomePageState extends State<MyHomePage> {
           content: SizedBox(
             height: MediaQuery.of(context).size.height * 0.65,
             width: MediaQuery.of(context).size.width * 1.0,
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  // spacing
-                  const SizedBox(height: 10),
-
-                  // task tag text field
-                  SizedBox(
-                    height: 80,
-                    child: TextFormField(
-                      controller: titleController,
-                      expands: true,
-                      maxLines: null,
+            child: Form(
+              key: formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    // spacing
+                    const SizedBox(height: 10),
+              
+                    // task tag text field
+                    SizedBox(
+                      height: 80,
+                      child: TextFormField(
+                        controller: titleController,
+                        expands: true,
+                        maxLines: null,
+                        cursorColor: Colors.grey,
+                        style: const TextStyle(
+                          fontSize: 15,
+                        ),
+                        decoration: const InputDecoration(
+                          labelText: 'Enter Title...',
+                          labelStyle: TextStyle(
+                            color: Colors.black45,
+                            fontSize: 20,
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          hintStyle: TextStyle(
+                            color: Colors.black45,
+                            fontSize: 14,
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide(
+                              color: Color(0xFFE5E5E5),
+                              width: 2,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide(
+                              color: Color(0xFFE5E5E5),
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a title for the task';
+                          } else {
+                            return null;
+                          }
+                        }
+                      ),
+                    ),
+              
+                    //spacing
+                    const SizedBox(height: 15),
+              
+                    // task notes text field
+                    TextFormField(
+                      controller: descriptionController,
                       cursorColor: Colors.grey,
+                      keyboardType: TextInputType.multiline,
+                      minLines: 5,
+                      maxLines: 9,
+                      textAlignVertical: TextAlignVertical.top,
                       style: const TextStyle(
                         fontSize: 15,
                       ),
                       decoration: const InputDecoration(
-                        labelText: 'Enter Title...',
+                        alignLabelWithHint: true,
+                        labelText: 'Enter Description...',
                         labelStyle: TextStyle(
                           color: Colors.black45,
-                          fontSize: 20,
+                          fontSize: 16,
                           letterSpacing: 0,
                           fontWeight: FontWeight.w500,
                         ),
                         hintStyle: TextStyle(
                           color: Colors.black45,
-                          fontSize: 14,
+                          fontSize: 10,
                           letterSpacing: 0,
                           fontWeight: FontWeight.w500,
                         ),
@@ -263,54 +320,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ),
-                  ),
-
-                  //spacing
-                  const SizedBox(height: 15),
-
-                  // task notes text field
-                  TextFormField(
-                    controller: descriptionController,
-                    cursorColor: Colors.grey,
-                    keyboardType: TextInputType.multiline,
-                    minLines: 5,
-                    maxLines: 9,
-                    textAlignVertical: TextAlignVertical.top,
-                    style: const TextStyle(
-                      fontSize: 15,
-                    ),
-                    decoration: const InputDecoration(
-                      alignLabelWithHint: true,
-                      labelText: 'Enter Description...',
-                      labelStyle: TextStyle(
-                        color: Colors.black45,
-                        fontSize: 16,
-                        letterSpacing: 0,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      hintStyle: TextStyle(
-                        color: Colors.black45,
-                        fontSize: 10,
-                        letterSpacing: 0,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        borderSide: BorderSide(
-                          color: Color(0xFFE5E5E5),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        borderSide: BorderSide(
-                          color: Color(0xFFE5E5E5),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
