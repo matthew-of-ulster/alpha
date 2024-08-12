@@ -92,20 +92,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
                                 TextButton(
-                                  child: Text("10 min"),
+                                  child: Text("Change"),
                                   onPressed: () async {
                                     entry.putOffCount = 19;
                                     await _databaseService.updateMemo(entry);
                                     setState(() {});
                                   },
-                                ),
-                                TextButton(
-                                  child: Text("10 hours"),
-                                  onPressed: () {},
-                                ),
-                                TextButton(
-                                  child: Text("10 days"),
-                                  onPressed: () {},
                                 ),
                               ],
                             ))
